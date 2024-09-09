@@ -1,0 +1,119 @@
+<gui_object name="hub_navigation" type="scroller" visible>
+	<border bottom=1 left=1 right=1 top=1>
+	<height value=1 type=scale>
+	<width value=1/4 type=scale>
+	<x attach=left>
+	<y value=0 type=scale>
+</gui_object>
+<gui_object name="hub_navigation_home" type="text">
+	<border bottom=1 left=1 right=1 top=1>
+	<content font_size=40>Accueil</content>
+	<height value=40 type=pixel>
+	<parent name="hub_navigation">
+	<texture alignment=fit>
+	<width value=1 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=top>
+
+	<when event="overflighted">
+		<cursor type=pointing_hand_cursor>
+	</when>
+</gui_object>
+<gui_object name="hub_navigation_data_handling" type="text">
+	<border bottom=1 left=1 right=1 top=1>
+	<content font_size=40>Structurer les données</content>
+	<height value=40 type=pixel>
+	<parent name="hub_navigation">
+	<texture alignment=fit>
+	<width value=1 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom attached_object="hub_navigation_home">
+
+	<when event="overflighted">
+		<cursor type=pointing_hand_cursor>
+	</when>
+</gui_object>
+
+//***************************************************
+//
+//   HOME
+//
+//*************************************************** 
+
+<gui_object name="hub_body" visible>
+	<border bottom=1 left=1 right=1 top=1>
+	<height value=1 type=scale>
+	<width value=3/4 type=scale>
+	<x attach=right>
+	<y value=0 type=scale>
+</gui_object>
+<gui_object name="hub_body_title" type="text">
+	<content font_size=80>Les structures de données</content>
+	<height value=80 type=pixel>
+	<parent name="hub_body">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=top offset=15>
+</gui_object>
+<gui_object name="hub_body_presentation" type="text">
+	<content font_size=35>Il est difficile de gérer des données... sans moyen de gérer des données ¯\_(-_-)_/¯.</br>Pour cela, que ce soit dans n'importe quel langage de programmation, il existe un moyen</br>de faire ça facilement : les structures de données.</br></br>Les utiliser papier - crayon, c'est bien. Les utiliser avec Python ou le C++, c'est un peu</br>mieux. Cependant, les utiliser dans un logiciel dédié à leur compréhension, c'est le top.</br>Pour cela, Aster Système vous propose ce logiciel, adapté au programme de NSI terminale</br>comme aux cours de SAASF. Si vous ne venez d'aucun de ces deux médias, vous pouvez</br>quand même l'utiliser, pour en apprendre plus sur les structures de données.</br></br>Pour naviguer dans le logiciel, utiliser les boutons à gauche de la page.</content>
+	<height value=2/3 type=scale>
+	<parent name="hub_body">
+	<texture alignment=fit>
+	<width value=7/8 type=scale>
+	<x value=1/2 type=object_scale>
+	<y value=1/2 type=object_scale>
+</gui_object>
+
+//***************************************************
+//
+//   DATA HANDLING
+//
+//***************************************************
+
+<gui_object name="body_data_handling" visible>
+	<border bottom=1 left=1 right=1 top=1>
+	<height value=1 type=scale>
+	<width value=3/4 type=scale>
+	<x attach=right>
+	<y value=0 type=scale>
+</gui_object>
+<gui_object name="body_data_handling_title" type="text">
+	<content font_size=80>Structurer des données</content>
+	<height value=80 type=pixel>
+	<parent name="body_data_handling">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=top offset=15>
+</gui_object>
+<gui_object name="body_data_handling_presentation" type="text">
+	<content font_size=35>
+L'idée d'une structure de données est de structure les données, de telle manière à permettre</br>
+un accès simple à ces données. Pour cela, plusieurs techniques sont possibles, plus ou moins</br>
+complexe : la pile d'itérateur, les itérateurs chainés, l'utilisation d'une structure déjà existante...</br>
+La plus simple, l'utilisation d'une structure déjà existante, consiste à prendre une structure déjà</br>
+implémentée dans le langage ("std::vector" en C++, ou "list" en Python), et de limiter l'utilisation</br>
+de ces structures aux besoins de votre structures.</br></br>
+Pour utiliser la structure, on doit pouvoir lui soumettre des opérations de bases, comme l'ajout</br>
+de données, le retrait de données, l'accés aux données... En général, c'est la façon dont fonctionne</br>
+ces opérations qui différencient les structures de données, selon nos besoins.</br></br>
+Vous trouverez en bas un exemple de structure simple, permettant d'insérer, d'enlever et d'accéder à des</br>
+données textuelles, via ce que l'on appelle son indice (un nombre qui représente la position de chaque</br>
+éléments) de la structure. Cette structure se rapproche du "std::vector" en C++, et de la "list" en Python.</content>
+	<height value=3/5 type=scale>
+	<parent name="body_data_handling">
+	<texture alignment=fit>
+	<width value=7/8 type=scale>
+	<x value=1/2 type=object_scale>
+	<y value=3/5 type=object_scale>
+</gui_object>
+<gui_object name="body_data_handling_list" type="gui_list">
+	<height value=3/10 type=scale>
+	<parent name="body_data_handling">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom offset=15>
+</gui_object>

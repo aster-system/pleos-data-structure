@@ -1,0 +1,4 @@
+// Load the needed pages
+<page_2d name="data_structure_page" displayed>
+	<content src="plugins/assets_data_structure/gui_content.txt" sub_paged>
+</page_2d>

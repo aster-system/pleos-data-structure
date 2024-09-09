@@ -28,14 +28,16 @@
 //
 
 // Include SCLS Graphic Benoit
-#include "../../../scls-graphic-benoit/scls_graphic.h"
+#include "../headers/pleos_data_structure.h"
 
 // Init SCLS
+SCLS_FOUNDATION_INIT
 SCLS_MATH_INIT
 
 // Main function of the program
 int main(int argc, char* argv[]) {
-    scls::Window window(900, 600, argv[0]);
+    pleos::__Temp_Pleos_Window window(900, 600, argv[0]);
+    window.load_from_xml("assets/window.txt");
 
     while(window.run()) {
         window.update_event();
