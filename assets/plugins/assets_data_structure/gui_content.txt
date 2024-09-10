@@ -33,6 +33,20 @@
 		<cursor type=pointing_hand_cursor>
 	</when>
 </gui_object>
+<gui_object name="hub_navigation_ds_optimisation" type="text">
+	<border bottom=1 left=1 right=1 top=1>
+	<content font_size=40>Organiser la structure</content>
+	<height value=40 type=pixel>
+	<parent name="hub_navigation">
+	<texture alignment=fit>
+	<width value=1 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom attached_object="hub_navigation_data_handling">
+
+	<when event="overflighted">
+		<cursor type=pointing_hand_cursor>
+	</when>
+</gui_object>
 
 //***************************************************
 //
@@ -101,7 +115,8 @@ de données, le retrait de données, l'accés aux données... En général, c'es
 ces opérations qui différencient les structures de données, selon nos besoins.</br></br>
 Vous trouverez en bas un exemple de structure simple, permettant d'insérer, d'enlever et d'accéder à des</br>
 données textuelles, via ce que l'on appelle son indice (un nombre qui représente la position de chaque</br>
-éléments) de la structure. Cette structure se rapproche du "std::vector" en C++, et de la "list" en Python.</content>
+éléments) de la structure. Cette structure se rapproche du "std::vector" en C++, et de la "list" en Python.</br>
+Nous pouvons y structurer pleins de choses, comme des pseudonymes d'utilisateurs à stocker.</content>
 	<height value=3/5 type=scale>
 	<parent name="body_data_handling">
 	<texture alignment=fit>
@@ -116,4 +131,60 @@ données textuelles, via ce que l'on appelle son indice (un nombre qui représen
 	<width value=3/4 type=scale>
 	<x value=1/2 type=object_scale>
 	<y attach=bottom offset=15>
+</gui_object>
+
+//***************************************************
+//
+//   DS OPTIMISATION
+//
+//***************************************************
+
+<gui_object name="body_ds_optimisation" visible>
+	<border bottom=1 left=1 right=1 top=1>
+	<height value=1 type=scale>
+	<width value=3/4 type=scale>
+	<x attach=right>
+	<y value=0 type=scale>
+</gui_object>
+<gui_object name="body_ds_optimisation_title" type="text">
+	<content font_size=80>Optimiser la structure</content>
+	<height value=80 type=pixel>
+	<parent name="body_ds_optimisation">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=top offset=15>
+</gui_object>
+<gui_object name="body_ds_optimisation_presentation" type="text">
+	<content font_size=35>
+L'informatique moderne est extrêmement rapide, et a rendu l'obligation d'optimiser à fond les</br>
+structures de données obsolète. En effet, de base, l'optimisation des structures de données</br>
+avait pour but d'accélérer le traitement des données, en utilisant des algorithmes plus adaptés</br>
+selon l'utilisation des données dans la structure. Or, de nos jours, les appareils sont devenus</br>
+tellement puissant qu'une simple structure ressemblant à une liste peut remplacer toutes les</br>
+autres, sans avoir besoin de vraiment optimiser la structure.</br></br>
+Hors, cette puissance à aussi rendu l'informatique plus simple, et donc plus accessible. C'est</br>
+donc pour cela que nos structures vont être optimisées : simplicité, portatitivé et modulabilité.</br>
+Nous pouvons même nous permettre des folies, avec des structures adaptés à des tâches répétitives</br>
+optimisées pour être facilement utilisable. La base de c'est structures peuvent en général rester</br>
+de simples listes, et leur implémentation faites via de la programmation orientée objet ou des</br>
+méthodes utilisant la liste en référence. Nous n'allons spécifier à l'utilisateur que l'interface</br>
+(ou, en terme plus moderne, la documentation) pour utiliser cette structure.</br></br>
+Pour l'exemple, nous allons utiliser une structure permettant de ranger des élèves selon leur note</br>
+de moyenne générale. Elle aura deux spécificités : l'indice sera le nom de famille de l'élève (non</br>
+modifiable et non vide), et l'élève sera placé (dans l'ordre alphabétique) lors ce qu'il sera ajouté.</content>
+	<height value=3/5 type=scale>
+	<parent name="body_ds_optimisation">
+	<texture alignment=fit>
+	<width value=7/8 type=scale>
+	<x value=1/2 type=object_scale>
+	<y value=3/5 type=object_scale>
+</gui_object>
+<gui_object name="body_ds_optimisation_list" type="gui_list">
+	<height value=1/4 type=scale>
+	<parent name="body_ds_optimisation">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom offset=10>
 </gui_object>

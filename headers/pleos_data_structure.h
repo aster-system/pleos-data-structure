@@ -45,8 +45,13 @@ namespace pleos {
         // GUI_List destructor
         ~GUI_List() {a_elements.clear();};
 
+        // Configure the text index enter GUI
+        void configure_gui_text_index(std::string index_title);
+
         // Adds an element to the list
         void add_element(unsigned short position);
+        // Deletes an element in the list
+        void delete_element(unsigned short position);
         // Updates the elements in the list
         void update_elements();
 
@@ -55,13 +60,51 @@ namespace pleos {
 
     private:
 
+        // GUI of an element in the list
+        struct __Element {
+            // Destructor of an element
+            ~__Element() {index_text.reset();insert_button.reset();delete_button.reset();element_content.reset();element_base.reset();};
+
+            // Base of the element in the GUI
+            std::shared_ptr<scls::GUI_Object> element_base;
+            // Content of the element
+            std::shared_ptr<scls::GUI_Text_Input> element_content;
+
+            // Delete button in the GUI
+            std::shared_ptr<scls::GUI_Text> delete_button;
+            // Insert button in the GUI
+            std::shared_ptr<scls::GUI_Text> insert_button;
+
+            // Value of the index (if text)
+            std::string index = "";
+            // Text containing the index of the element in the GUI
+            std::shared_ptr<scls::GUI_Text> index_text;
+        };
+
+        // If the structure is currently animated
+        bool a_currently_animated = false;
+        // Currently animated entering element
+        std::shared_ptr<scls::GUI_Object> a_curently_animated_entering_element;
+        // Currently animated leaving state
+        double a_curently_animated_entering_state = -1;
+        double a_curently_animated_entering_state_max = 0.3;
+        // Currently animated leaving element
+        std::shared_ptr<scls::GUI_Object> a_curently_animated_leaving_element;
+        // Currently animated leaving state
+        double a_curently_animated_leaving_state = -1;
+        double a_curently_animated_leaving_state_max = 0.3;
+        // If the structure use the text index or not
+        bool a_use_index = false;
+
         // Number of created buttons
         unsigned int created_button = 0;
         // Elements in the list
-        std::vector<std::shared_ptr<scls::GUI_Object>> a_elements;
+        std::vector<__Element> a_elements;
 
         // Button to add a new element
         std::shared_ptr<scls::GUI_Text> a_new_element_button;
+        // Get the index of the new element
+        std::shared_ptr<scls::GUI_Text_Input> a_new_element_index;
     };
 
     class Data_Structure_Page : public scls::GUI_Page {
@@ -83,6 +126,8 @@ namespace pleos {
 
         // Displays the body of the data handling
         void display_data_handling();
+        // Displays the body of the data structure optimisation
+        void display_ds_optimisation();
         // Displays the body of the home
         void display_home();
         // Hides all the bodies in the page
@@ -93,12 +138,16 @@ namespace pleos {
         // Bodies
         // Data handling body
         std::shared_ptr<scls::GUI_Object> a_body_data_handling;
+        // Data structure optimisation body
+        std::shared_ptr<scls::GUI_Object> a_body_ds_optimisation;
         // Home body
         std::shared_ptr<scls::GUI_Object> a_body_home;
 
         // Navigation buttons
         // Data handling button
         std::shared_ptr<scls::GUI_Text> a_navigation_data_handling;
+        // Data structure optimisation button
+        std::shared_ptr<scls::GUI_Text> a_navigation_ds_optimisation;
         // Home button
         std::shared_ptr<scls::GUI_Text> a_navigation_home;
     };
