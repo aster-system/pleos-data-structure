@@ -66,17 +66,19 @@ namespace pleos {
 
         // Create the delete button
         std::shared_ptr<scls::GUI_Text>& delete_button = element_to_add.delete_button;
-        delete_button = *to_add.get()->new_object<scls::GUI_Text>(name() + "-button_" + std::to_string(created_button) + "_delete");
-        delete_button.get()->attach_bottom_in_parent();
-        delete_button.get()->set_border_width_in_pixel(1);
-        delete_button.get()->set_height_in_scale(scls::Fraction(1, 5));
-        delete_button.get()->set_overflighted_cursor(GLFW_HAND_CURSOR);
-        delete_button.get()->set_text("Supprimer");
-        delete_button.get()->set_width_in_scale(scls::Fraction(1));
-        delete_button.get()->set_x_in_object_scale(scls::Fraction(1, 2));
+        if(a_type == List) {
+            delete_button = *to_add.get()->new_object<scls::GUI_Text>(name() + "-button_" + std::to_string(created_button) + "_delete");
+            delete_button.get()->attach_bottom_in_parent();
+            delete_button.get()->set_border_width_in_pixel(1);
+            delete_button.get()->set_height_in_scale(scls::Fraction(1, 5));
+            delete_button.get()->set_overflighted_cursor(GLFW_HAND_CURSOR);
+            delete_button.get()->set_text("Supprimer");
+            delete_button.get()->set_width_in_scale(scls::Fraction(1));
+            delete_button.get()->set_x_in_object_scale(scls::Fraction(1, 2));
+        }
 
         std::shared_ptr<scls::GUI_Text>& insert_button = element_to_add.insert_button;
-        if(!a_use_index) {
+        if(!a_use_index && a_type == List) {
             // Create the insert button
             insert_button = *to_add.get()->new_object<scls::GUI_Text>(name() + "-button_" + std::to_string(created_button) + "_insert");
             insert_button.get()->attach_top_of_object_in_parent(delete_button);
@@ -91,7 +93,8 @@ namespace pleos {
         // Create the index text of the element
         std::shared_ptr<scls::GUI_Text>& index_part = element_to_add.index_text;
         index_part = *to_add.get()->new_object<scls::GUI_Text>(name() + "-button_" + std::to_string(created_button) + "_index");
-        if(a_use_index) index_part.get()->attach_top_of_object_in_parent(delete_button);
+        if(a_type != List) index_part.get()->attach_bottom_in_parent();
+        else if(a_use_index) index_part.get()->attach_top_of_object_in_parent(delete_button);
         else index_part.get()->attach_top_of_object_in_parent(insert_button);
         index_part.get()->set_height_in_scale(scls::Fraction(1, 5));
         index_part.get()->set_width_in_scale(scls::Fraction(4, 5));
@@ -123,6 +126,22 @@ namespace pleos {
         a_curently_animated_entering_state = 0;
 
         update_elements();
+    }
+
+    // Configure the stack / queue GUI
+    void GUI_List::configure_gui_stack_queue() {
+        // Create the title of the index
+        a_delete_element_button = *new_object<scls::GUI_Text>(name() + "-deletel_element_button");
+        a_delete_element_button.get()->attach_right_in_parent();
+        a_delete_element_button.get()->attach_top_in_parent();
+        a_delete_element_button.get()->set_border_width_in_pixel(1);
+        a_delete_element_button.get()->set_font_size(30);
+        a_delete_element_button.get()->set_height_in_pixel(30);
+        a_delete_element_button.get()->set_overflighted_cursor(GLFW_HAND_CURSOR);
+        a_delete_element_button.get()->set_text(scls::to_utf_8_code_point("Supprimer un élément"));
+        a_delete_element_button.get()->set_texture_alignment(scls::Alignment_Texture::T_Fit);
+        a_delete_element_button.get()->set_width_in_scale(scls::Fraction(1, 3));
+        a_delete_element_button.get()->set_x_in_scale(scls::Fraction(0));
     }
 
     // Configure the text index enter GUI
@@ -202,21 +221,32 @@ namespace pleos {
             else add_element(a_elements.size());
         }
 
+        // An element must be delete
+        if(!a_currently_animated && a_elements.size() > 0 && a_delete_element_button.get() != 0 && a_delete_element_button.get()->is_clicked_during_this_frame(GLFW_MOUSE_BUTTON_LEFT)) {
+            a_currently_animated = true;
+            if(a_delete_element_index < 0) a_curently_animated_leaving_element = a_elements[a_elements.size() - static_cast<unsigned int>(-a_delete_element_index)].element_base;
+            else a_curently_animated_leaving_element = a_elements[a_delete_element_index].element_base;
+            a_curently_animated_leaving_state = 0;
+        }
+
+        // Check each animations
         int entering_animation_i = -1;
         int leaving_animation_i = -1;
         for(int i = 0;i<static_cast<int>(a_elements.size());i++) {
-            // Check if an insert button is pressed
-            if(!a_use_index && !a_currently_animated && a_elements[i].insert_button.get()->is_clicked_during_this_frame(GLFW_MOUSE_BUTTON_LEFT)) {
-                // Create the element
-                add_element(i);
-                i++;
-            }
+            if(a_type == List) {
+                // Check if an insert button is pressed
+                if(!a_use_index && !a_currently_animated && a_elements[i].insert_button.get()->is_clicked_during_this_frame(GLFW_MOUSE_BUTTON_LEFT)) {
+                    // Create the element
+                    add_element(i);
+                    i++;
+                }
 
-            // Check if a delete button is pressed
-            if(!a_currently_animated && a_elements[i].delete_button.get()->is_clicked_during_this_frame(GLFW_MOUSE_BUTTON_LEFT)) {
-                a_currently_animated = true;
-                a_curently_animated_leaving_element = a_elements[i].element_base;
-                a_curently_animated_leaving_state = 0;
+                // Check if a delete button is pressed
+                if(!a_currently_animated && a_elements[i].delete_button.get()->is_clicked_during_this_frame(GLFW_MOUSE_BUTTON_LEFT)) {
+                    a_currently_animated = true;
+                    a_curently_animated_leaving_element = a_elements[i].element_base;
+                    a_curently_animated_leaving_state = 0;
+                }
             }
 
             // Check the entering animation
@@ -301,6 +331,10 @@ namespace pleos {
             a_body_ds_optimisation = *parent->new_object<scls::GUI_Object>(object_name);
             return a_body_ds_optimisation;
         }
+        else if(object_name == "body_stack_queue") {
+            a_body_stack_queue = *parent->new_object<scls::GUI_Object>(object_name);
+            return a_body_stack_queue;
+        }
         else if(object_name == "hub_body") {
             a_body_home = *parent->new_object<scls::GUI_Object>(object_name);
             return a_body_home;
@@ -317,9 +351,15 @@ namespace pleos {
             a_navigation_home = *parent->new_object<scls::GUI_Text>(object_name);
             return a_navigation_home;
         }
+        else if(object_name == "hub_navigation_stack_queue") {
+            a_navigation_stack_queue = *parent->new_object<scls::GUI_Text>(object_name);
+            return a_navigation_stack_queue;
+        }
         else if(object_type == "gui_list") {
             std::shared_ptr<GUI_List> to_return = *parent->new_object<GUI_List>(object_name);
             if(object_name == "body_ds_optimisation_list") to_return.get()->configure_gui_text_index("Nom :");
+            else if(object_name == "body_stack_queue_queue") to_return.get()->set_queue();
+            else if(object_name == "body_stack_queue_stack") to_return.get()->set_stack();
             return to_return;
         }
         return scls::GUI_Page::__create_loaded_object_from_type(object_name, object_type, parent);
@@ -338,6 +378,10 @@ namespace pleos {
         if(a_navigation_data_handling.get()->is_clicked_during_this_frame(GLFW_MOUSE_BUTTON_LEFT)) {
             // The data handling button is clicked
             display_data_handling();
+        }
+        if(a_navigation_stack_queue.get()->is_clicked_during_this_frame(GLFW_MOUSE_BUTTON_LEFT)) {
+            // The stack / queue button is clicked
+            display_stack_queue();
         }
     }
 
@@ -359,11 +403,18 @@ namespace pleos {
         if(a_body_ds_optimisation.get() != 0) a_body_ds_optimisation.get()->set_visible(true);
     }
 
+    // Displays the body of the stack / queue
+    void Data_Structure_Page::display_stack_queue() {
+        hide_all();
+        if(a_body_stack_queue.get() != 0) a_body_stack_queue.get()->set_visible(true);
+    }
+
     // Hide all the bodies in the page
     void Data_Structure_Page::hide_all() {
         if(a_body_data_handling.get() != 0) a_body_data_handling.get()->set_visible(false);
         if(a_body_ds_optimisation.get() != 0) a_body_ds_optimisation.get()->set_visible(false);
         if(a_body_home.get() != 0) a_body_home.get()->set_visible(false);
+        if(a_body_stack_queue.get() != 0) a_body_stack_queue.get()->set_visible(false);
     }
 
     // Update the events in the page

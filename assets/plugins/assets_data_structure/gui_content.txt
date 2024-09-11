@@ -47,6 +47,20 @@
 		<cursor type=pointing_hand_cursor>
 	</when>
 </gui_object>
+<gui_object name="hub_navigation_stack_queue" type="text">
+	<border bottom=1 left=1 right=1 top=1>
+	<content font_size=40>Le cas de la pile / file</content>
+	<height value=40 type=pixel>
+	<parent name="hub_navigation">
+	<texture alignment=fit>
+	<width value=1 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom attached_object="hub_navigation_ds_optimisation">
+
+	<when event="overflighted">
+		<cursor type=pointing_hand_cursor>
+	</when>
+</gui_object>
 
 //***************************************************
 //
@@ -187,4 +201,63 @@ modifiable et non vide), et l'élève sera placé (dans l'ordre alphabétique) l
 	<width value=3/4 type=scale>
 	<x value=1/2 type=object_scale>
 	<y attach=bottom offset=10>
+</gui_object>
+
+//***************************************************
+//
+//   STACK / QUEUE
+//
+//***************************************************
+
+<gui_object name="body_stack_queue" visible>
+	<border bottom=1 left=1 right=1 top=1>
+	<height value=1 type=scale>
+	<width value=3/4 type=scale>
+	<x attach=right>
+	<y value=0 type=scale>
+</gui_object>
+<gui_object name="body_stack_queue_title" type="text">
+	<content font_size=80>Le cas de la pile / file</content>
+	<height value=80 type=pixel>
+	<parent name="body_stack_queue">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=top offset=15>
+</gui_object>
+<gui_object name="body_stack_queue_presentation" type="text">
+	<content font_size=35>
+Bien qu'il existe une infinité de structures de données possibles, il est possible d'y appliquer</br>
+certains principes de fonctionnement, assez généraux. Parmis ces principes, nous allons en voir</br>
+deux (présents dans le programme de NSI de terminal) : LIFO et FIFO. LIFO, pour Last In Firt Out,</br>
+représente une structure de données où la seule donnée supprimable est la dernière donnée rentrée</br>
+dans la structure. Il est modélisable via une structure de données nommée la pile, comme une pile</br>
+d'assiette (pour ne pas tout casser, seule la dernière assiette posée au dessus de la pile peut</br>
+être enlevée). À l'inverse, FIFO représente First In First Out, où la seule donnée supprimable est</br>
+la première donnée ajoutée dans la structure. Il est modélisable via une structure de données</br>
+nommée la file, comme la file d'attente (premier arrivé, premier servit / premier à pouvoir en sortir).</br>
+En dessous, vous trouverez une pile (en haut) et une file (en bas).</content>
+	<height value=3/10 type=scale>
+	<parent name="body_stack_queue">
+	<texture alignment=fit>
+	<width value=7/8 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom attached_object="body_stack_queue_title" offset=5>
+</gui_object>
+
+<gui_object name="body_stack_queue_stack" type="gui_list">
+	<height value=1/4 type=scale>
+	<parent name="body_stack_queue">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom attached_object="body_stack_queue_presentation" offset=10>
+</gui_object>
+<gui_object name="body_stack_queue_queue" type="gui_list">
+	<height value=1/4 type=scale>
+	<parent name="body_stack_queue">
+	<texture alignment=fit>
+	<width value=3/4 type=scale>
+	<x value=1/2 type=object_scale>
+	<y attach=bottom offset=5>
 </gui_object>

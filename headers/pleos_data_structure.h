@@ -45,8 +45,13 @@ namespace pleos {
         // GUI_List destructor
         ~GUI_List() {a_elements.clear();};
 
+        // Configure the stack / queue GUI
+        void configure_gui_stack_queue();
         // Configure the text index enter GUI
         void configure_gui_text_index(std::string index_title);
+        // Set the list as a stack / queue
+        void set_queue() {a_type = Queue;configure_gui_stack_queue();a_delete_element_index = 0;};
+        void set_stack() {a_type = Stack;configure_gui_stack_queue();a_delete_element_index = -1;};
 
         // Adds an element to the list
         void add_element(unsigned short position);
@@ -100,7 +105,13 @@ namespace pleos {
         unsigned int created_button = 0;
         // Elements in the list
         std::vector<__Element> a_elements;
+        // Type of the structure
+        enum {List, Queue, Stack} a_type = List;
 
+        // Button to delete an element
+        std::shared_ptr<scls::GUI_Text> a_delete_element_button;
+        // Index of the element to delete
+        short a_delete_element_index = 0;
         // Button to add a new element
         std::shared_ptr<scls::GUI_Text> a_new_element_button;
         // Get the index of the new element
@@ -130,6 +141,8 @@ namespace pleos {
         void display_ds_optimisation();
         // Displays the body of the home
         void display_home();
+        // Displays the body of the stack / queue
+        void display_stack_queue();
         // Hides all the bodies in the page
         void hide_all();
 
@@ -142,6 +155,8 @@ namespace pleos {
         std::shared_ptr<scls::GUI_Object> a_body_ds_optimisation;
         // Home body
         std::shared_ptr<scls::GUI_Object> a_body_home;
+        // Stack / queue body
+        std::shared_ptr<scls::GUI_Object> a_body_stack_queue;
 
         // Navigation buttons
         // Data handling button
@@ -150,6 +165,8 @@ namespace pleos {
         std::shared_ptr<scls::GUI_Text> a_navigation_ds_optimisation;
         // Home button
         std::shared_ptr<scls::GUI_Text> a_navigation_home;
+        // Stack / queue button
+        std::shared_ptr<scls::GUI_Text> a_navigation_stack_queue;
     };
 
     class __Temp_Pleos_Window : public scls::Window {
