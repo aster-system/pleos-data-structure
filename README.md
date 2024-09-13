@@ -9,8 +9,8 @@ More information in the website : https://aster-system.github.io/aster-system/pr
 ### Target
 This Software aims for two goal: be used by french IT teachers, and be usable for SAASF lessons. As this Software is not made in collaboration with any teachers, it will join the SAASF Data Structure lesson, avaible here : https://aster-system.github.io/saasf/astersystemelearn/cpp_lessons/cpp_algorithm_data_structure.html, with the IT lessons.
 ### Pages
-This software will contains ? pages :
 #### 11.09.24 version :
+This version will contains 3 pages :
 - Data structure explaination
 - Data structure optimisation
 - Stack / Queue page
